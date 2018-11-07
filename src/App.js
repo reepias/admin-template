@@ -1,29 +1,86 @@
-import React, { Component } from 'react'
+import React, {
+  Component
+} from 'react'
 import logo from './logo.svg'
 import './App.css'
-import { Button } from 'antd'
+import {
+  Form,
+  Icon,
+  Input,
+  Button
+} from 'antd'
+
+const FormItem = Form.Item
 
 class App extends Component {
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+    this.props.form.validateFields((err, values) => {
+      if (!err) {
+        console.log('Received values of form: ', values)
+      }
+    })
+  }
+
   render() {
+    const { getFieldDecorator } = this.props.form
     return (
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
-            Edit <code>src/App.js</code> and save to reload.
+            Admin Template
           </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
+          <Form
+            onSubmit={this.handleSubmit}
+            className="login-form"
           >
-            <Button type="primary">Learn React</Button>
-          </a>
+
+            <FormItem>
+              {getFieldDecorator('userName', {
+                rules: [{
+                  required: true,
+                  message: 'Please input your username!'
+                }],
+              })(
+                <Input
+                  prefix={ <Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  placeholder="Username"
+                />
+              )}
+            </FormItem>
+
+            <FormItem>
+              {getFieldDecorator('password', {
+                rules: [{
+                  required: true,
+                  message: 'Please input your Password!'
+                }],
+              })(
+                <Input
+                  prefix={ <Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                  type="password"
+                  placeholder="Password"
+                />
+              )}
+            </FormItem>
+
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="login-form-button"
+            >
+              Login
+            </Button>
+
+          </Form>
         </header>
       </div>
     )
   }
 }
 
-export default App
+const WrappedNormalLoginForm = Form.create()(App);
+
+export default WrappedNormalLoginForm
