@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react'
+import logo from './logo.svg'
+import './App.css'
+import { Button } from 'antd'
 
 class App extends Component {
   render() {
@@ -17,12 +18,12 @@ class App extends Component {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Learn React
+            <Button type="primary">Learn React</Button>
           </a>
         </header>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
